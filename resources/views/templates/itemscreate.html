@@ -1,0 +1,26 @@
+<div class="row" ng-include="">
+	hi there
+
+</div>
+
+<form method="POST" name="addItem" ng-submit="saveAdd(addItem.$valid)" novalidate>
+	<div class="form-group">
+	      <label for="title">Title:</label>
+	      <input name="title" type="text" ng-model="user.title" class="form-control" id="title" placeholder="Enter Title" required ng-minlength='3'>
+
+	      <p ng-show="addItem.title.$error.minlength && !addItem.title.$prestine" class="help-block">title is too short. The minimum is 3 words</p>
+    </div>
+
+    <div class="form-group">
+	      <label for="Description">Description :</label>
+	       <textarea name='description' ng-model="user.description" class="form-control" required ng-minlength="3" ng-maxlength="8">
+           </textarea>
+
+           <p ng-show="addItem.description.$error.minlength && !addItem.description.$prestine" class="help-block">Description is too short. The minimum is 3 words</p>
+           <p ng-show="addItem.description.$error.maxlength" class="help-block">Description is too long. The maximum length is 8 words</p>
+    </div>
+
+    <button type="submit" ng-disabled="addItem.$invalid" class="btn btn-default">Register</button>
+    <!-- ng-disabled="additem.$invalid" -->
+
+</form>
