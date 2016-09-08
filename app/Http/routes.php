@@ -26,6 +26,7 @@
 
 
 
+
 Route::resource('items', 'ItemController');
 Route::get('countingitems','ItemController@countingItems');
 

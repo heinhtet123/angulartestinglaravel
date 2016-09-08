@@ -7,21 +7,30 @@ app.controller('AdminController',function($scope,$http){
 app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
 //	global_var=1;
 
-
-  $scope.totalItems = 64;
   //$scope.currentPage = 4;
+  
+  //items per page
+  $scope.itemsperpage=5;
+
 
   $scope.setPage = function (pageNo) {
     $scope.bigCurrentPage = pageNo;
-    $log.log($scope.bigCurrentPage);
+    // ?sortby='desc'
+    dataFactory.httpRequest("/items?sortby='desc'&page="+pageNo+" ").then(function(data){
+      $scope.data={};
+      $scope.data=data;
+
+    });
+
+
   };
 
   $scope.pageChanged = function() {
     //$log.log('Page changed to: ' + $scope.currentPage);
   };
 
-  //items per page
-  $scope.itemsperpage=8;
+  
+
 
   dataFactory.httpRequest("/countingitems").then(function(data){
     //total number of items
@@ -32,17 +41,29 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   });
   
 
+
+  // total items
   (() => {  
-    dataFactory.httpRequest('/items?search=1').then(function(data){
-      console.log(data);
+
+      // ?sortby='desc'
+    dataFactory.httpRequest("/items?sortby='desc'").then(function(data){
+      $scope.data=data;
     });
 
   })();
   
 
+
   $scope.maxSize = 5;
   //number of page
+
+
   $scope.numPages= $scope.bigTotalItems/$scope.itemsperpage;
+  if($scope.numPages % 1 != 0)
+  {
+      $scope.numPages=$scope.numPages+1;
+  }
+
   $scope.bigCurrentPage = 1;
   
 

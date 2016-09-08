@@ -17,16 +17,37 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
+        $items=new Item();
+        $offset=0;
+        $limit=5;
+
+
+        if($request->has('sortby'))
+        {
+           $items=$items->orderby('id',$request->get('sortby'));
+        }
+
+        if($request->has('page'))
+        {
+            $page=$request->get('page');
+
+            $offset=$limit*$page-$limit;
+            // $limit=$limit*$page;
+        }
+
+
+
 
         if($request->get('search')){
-            $items = Item::where("title", "LIKE", "%{$request->get('search')}%")
+            $items = $items->where("title", "LIKE", "%{$request->get('search')}%")
                 ->paginate(5);      
         }else{
-           //$items= Item::get();
-            $items = Item::paginate(15);
+
+            // skip is offset and take is limit
+            $items = $items->skip($offset)->take($limit)->get();
         }
         
-        return response($request->get('search'));
+        return response($items);
     }
 
 
