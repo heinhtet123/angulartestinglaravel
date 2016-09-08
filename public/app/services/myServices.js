@@ -23,6 +23,7 @@ app.factory('dataFactory',function($http){
 	      }
 
 	      var promise=$http(passParameters).then(function(data){
+	      
 	      	return data.data;
 	      }).catch(function(){
 	      	console.log("Something went wrong in promise response");

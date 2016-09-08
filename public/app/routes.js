@@ -16,4 +16,5 @@ app.config(['$routeProvider',function($routeProvider){
     }).
     otherwise({templateUrl:'templates/404.html'});
 
+
 }]);

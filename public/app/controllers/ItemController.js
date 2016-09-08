@@ -7,16 +7,20 @@ app.controller('AdminController',function($scope,$http){
 app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
 //	global_var=1;
 
-  //$scope.currentPage = 4;
   
+  $scope.loading=true;
+
   //items per page
   $scope.itemsperpage=5;
 
 
   $scope.setPage = function (pageNo) {
     $scope.bigCurrentPage = pageNo;
-    // ?sortby='desc'
+    $scope.loading=true;
+
     dataFactory.httpRequest("/items?sortby='desc'&page="+pageNo+" ").then(function(data){
+     
+      $scope.loading=false;
       $scope.data={};
       $scope.data=data;
 
@@ -30,8 +34,6 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   };
 
   
-
-
   dataFactory.httpRequest("/countingitems").then(function(data){
     //total number of items
     $scope.bigTotalItems=data;
@@ -44,9 +46,9 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
 
   // total items
   (() => {  
-
       // ?sortby='desc'
     dataFactory.httpRequest("/items?sortby='desc'").then(function(data){
+      $scope.loading=false;
       $scope.data=data;
     });
 

@@ -16,6 +16,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+        sleep(1);
         $input = $request->all();
         $items=new Item();
         $offset=0;
@@ -47,6 +48,7 @@ class ItemController extends Controller
             $items = $items->skip($offset)->take($limit)->get();
         }
         
+
         return response($items);
     }
 
