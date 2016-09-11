@@ -9,6 +9,25 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   $scope.sortField="id";
   $scope.reverse=true;
   $scope.params="?sortby='desc'&";
+    $scope.loading=true;
+  //items per page
+  $scope.itemsperpage=5;
+
+  $scope.maxSize = 5;
+  //number of page
+
+
+  $scope.numPages= $scope.bigTotalItems/$scope.itemsperpage;
+  if($scope.numPages % 1 != 0)
+  {
+      $scope.numPages=$scope.numPages+1;
+  }
+
+  $scope.bigCurrentPage = 1;
+
+
+
+
 
   $scope.sort=function (sortname){
     $scope.sortField=sortname;
@@ -33,10 +52,6 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   };
 
 
-  $scope.loading=true;
-  //items per page
-  $scope.itemsperpage=5;
-
   // set page function
   $scope.setPage = function (pageNo) {
     $scope.bigCurrentPage = pageNo;
@@ -57,13 +72,7 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   };
 
 
-
-
-  $scope.pageChanged = function() {
-    //$log.log('Page changed to: ' + $scope.currentPage);
-  };
-
-  
+  // counting items
   dataFactory.httpRequest("/countingitems").then(function(data){
     //total number of items
     $scope.bigTotalItems=data;
@@ -74,7 +83,7 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   
 
 
-  // total items
+  // total items first time 
   (() => {  
       // ?sortby='desc'
     dataFactory.httpRequest("/items?sortby='desc'").then(function(data){
@@ -83,26 +92,6 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
     });
 
   })();
-  
-
-
-  $scope.maxSize = 5;
-  //number of page
-
-
-  $scope.numPages= $scope.bigTotalItems/$scope.itemsperpage;
-  if($scope.numPages % 1 != 0)
-  {
-      $scope.numPages=$scope.numPages+1;
-  }
-
-  $scope.bigCurrentPage = 1;
-  
-  
-
-
-
-
 
 
   $scope.saveAdd=function(isvalid){
