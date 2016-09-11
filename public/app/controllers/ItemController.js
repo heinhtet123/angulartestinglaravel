@@ -103,10 +103,8 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
           
           host=$window.location.host;
           $scope.data.push(data);
-          
           $window.alert("Successfully Saved");
           $window.location.href="http://"+host+"/#/items";
-          
        });
       
 
