@@ -6,13 +6,23 @@ app.controller('AdminController',function($scope,$http){
 
 app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
 //	global_var=1;
-  
+  $scope.sortField="id";
+  $scope.reverse=true;
+
+  $scope.sort=function (name){
+    $scope.sortField=name;
+    $scope.reverse=!$scope.reverse;
+
+    console.log($scope.reverse);
+  };
+
+
   $scope.loading=true;
 
   //items per page
   $scope.itemsperpage=5;
 
-
+  // set page function
   $scope.setPage = function (pageNo) {
     $scope.bigCurrentPage = pageNo;
     $scope.loading=true;
@@ -20,8 +30,8 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
     // ajax call to page
     dataFactory.httpRequest("/items?sortby='desc'&page="+pageNo+" ").then(function(data){
       $scope.loading=false;
-      $scope.data={};
       $scope.data=data;
+      
     }).catch(function(){
         $scope.loading=false;
         console.log("something went wrong in setpage of ajax");
@@ -29,6 +39,9 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
 
 
   };
+
+
+
 
   $scope.pageChanged = function() {
     //$log.log('Page changed to: ' + $scope.currentPage);
@@ -69,46 +82,12 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
 
   $scope.bigCurrentPage = 1;
   
-
-
-	// $scope.data=[];
-
- //  $scope.libraryTemp = {};
- //  $scope.totalItemsTemp = {};
-
- //  // $scope.sortBy = "id";   //set the sortBy to the param passed
- //  // $scope.reverse = true; //if true make it false and vice versa
-
- //  $scope.totalItems = 0;
-
- //  // $scope.pageChanged = function(newPage) {
- //  //   getResultsPage(newPage,'b');
- //  // };
-
- //  getResultsPage(2,"a");
   
- //  function getResultsPage(pageNumber,name) {
-      
 
- //      if(! $.isEmptyObject($scope.libraryTemp)){
- //          dataFactory.httpRequest('/items?search='+$scope.searchText+'&page='+pageNumber).then(function(data) {
- //            $scope.data = data.data;
- //            $scope.totalItems = data.total;
- //          });
- //      }else{
-        
- //        promise =dataFactory.httpRequest('/items');
- //        promise.then(function(data) {
 
- //          console.log(data);  
- //          $scope.data = data;
-          
- //          // return data.length;
- //        });
-        
 
- //      }
- //  }
+
+
 
   $scope.saveAdd=function(isvalid){
      $scope.minlength = 3;
