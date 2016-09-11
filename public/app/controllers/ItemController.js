@@ -6,7 +6,6 @@ app.controller('AdminController',function($scope,$http){
 
 app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
 //	global_var=1;
-
   
   $scope.loading=true;
 
@@ -18,12 +17,14 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
     $scope.bigCurrentPage = pageNo;
     $scope.loading=true;
 
+    // ajax call to page
     dataFactory.httpRequest("/items?sortby='desc'&page="+pageNo+" ").then(function(data){
-     
       $scope.loading=false;
       $scope.data={};
       $scope.data=data;
-
+    }).catch(function(){
+        $scope.loading=false;
+        console.log("something went wrong in setpage of ajax");
     });
 
 
