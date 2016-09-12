@@ -16,6 +16,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+        
         sleep(1);
         $input = $request->all();
         $items=new Item();

@@ -9,13 +9,13 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   $scope.sortField="id";
   $scope.reverse=true;
   $scope.params="?sortby='desc'&";
-    $scope.loading=true;
+  $scope.loading=true;
   //items per page
   $scope.itemsperpage=5;
-
+  
   $scope.maxSize = 5;
   //number of page
-
+  $scope.bigCurrentPage = 1;
 
   $scope.numPages= $scope.bigTotalItems/$scope.itemsperpage;
   if($scope.numPages % 1 != 0)
@@ -23,10 +23,7 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
       $scope.numPages=$scope.numPages+1;
   }
 
-  $scope.bigCurrentPage = 1;
-
-
-
+  
 
 
   $scope.sort=function (sortname){
@@ -38,7 +35,7 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
       if($scope.reverse==true)
       { 
        $scope.params="?sortby='desc'&";
-
+       
       }else
       {
         $scope.params="?";
