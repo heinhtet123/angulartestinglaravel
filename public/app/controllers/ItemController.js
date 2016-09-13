@@ -27,7 +27,6 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   
 
   
-
   $scope.select=function (){
       if($scope.selected)
       {
@@ -48,6 +47,11 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
          });
 
       }
+   };
+
+   
+   $scope.deleteall=function (){
+    console.log($scope.data);
    };
 
   
@@ -78,11 +82,13 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   $scope.setPage = function (pageNo) {
     $scope.bigCurrentPage = pageNo;
     $scope.loading=true;
-
+    $scope.selected=false;
     // ajax call to page
 
     dataFactory.httpRequest("/items"+$scope.params+"page="+pageNo+" ").then(function(data){
       $scope.loading=false;
+      
+
       $scope.data=data;
       
     }).catch(function(){
@@ -110,6 +116,8 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
       // ?sortby='desc'
     dataFactory.httpRequest("/items?sortby='desc'").then(function(data){
       $scope.loading=false;
+      $scope.selected=false;
+
       $scope.data=data;
     });
 

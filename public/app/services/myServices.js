@@ -26,7 +26,7 @@ app.factory('dataFactory',function($http){
 	      
 	      	return data.data;
 	      }).catch(function(){
-	      	console.log("Something went wrong in promise response");
+	      	alert("Make sure you run the localhost:8000");
 	      });
 
 		  return promise;
