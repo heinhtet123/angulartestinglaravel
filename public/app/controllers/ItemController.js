@@ -23,9 +23,34 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
       $scope.numPages=$scope.numPages+1;
   }
 
+
   
 
+  
 
+  $scope.select=function (){
+      if($scope.selected)
+      {
+        // added the selected
+        angular.forEach($scope.data, function(data){
+          // $scope.data.push({selected:true});
+          data.selected = true;
+        });
+
+
+      }else{
+        
+         angular.forEach($scope.data, function(data){
+            if(data.selected)
+            {
+              delete data.selected;
+            }
+         });
+
+      }
+   };
+
+  
   $scope.sort=function (sortname){
     $scope.sortField=sortname;
     $scope.reverse=!$scope.reverse;
