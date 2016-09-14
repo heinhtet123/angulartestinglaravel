@@ -122,6 +122,13 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
+    
+    public function multipledelete($data)
+    {
+
+    }
+
+
 }

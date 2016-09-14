@@ -29,12 +29,12 @@
 
 Route::resource('items', 'ItemController');
 Route::get('countingitems','ItemController@countingItems');
-
+Route::delete("multipledelete/{ids}", "ItemController@multipledelete");
 // Templates
 Route::group(array('prefix'=>'/templates/'),function(){
 
     Route::get('{templates}', array( function($templates)
-    {    	
+    {
         $templates = str_replace(".html","",$templates);
         View::addExtension('html','php');
         return View::make('templates.'.$templates);

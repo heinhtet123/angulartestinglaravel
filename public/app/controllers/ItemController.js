@@ -23,9 +23,6 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
       $scope.numPages=$scope.numPages+1;
   }
 
-
-  
-
   
   $scope.select=function (){
       if($scope.selected)
@@ -47,11 +44,12 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
          });
 
       }
+
    };
 
    
    $scope.deleteall=function (){
-    console.log($scope.data);
+      
    };
 
   
