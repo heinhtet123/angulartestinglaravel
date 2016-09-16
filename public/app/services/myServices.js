@@ -3,6 +3,7 @@ app.factory('dataFactory',function($http){
 		httpRequest:function (url,method,params,dataPost,upload){
 		var passParameters={};
 		passParameters.url=url;
+		passParameters.headers={'Content-Type': "application/json"};
 
 		  if (typeof method == 'undefined'){
 	        passParameters.method = 'GET';
@@ -23,7 +24,6 @@ app.factory('dataFactory',function($http){
 	      }
 
 	      var promise=$http(passParameters).then(function(data){
-	      
 	      	return data.data;
 	      }).catch(function(){
 	      	alert("Make sure you run the localhost:8000");

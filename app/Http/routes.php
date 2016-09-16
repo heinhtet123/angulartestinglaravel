@@ -29,8 +29,9 @@
 
 Route::resource('items', 'ItemController');
 Route::get('countingitems','ItemController@countingItems');
-Route::delete("multipledelete/{ids}", "ItemController@multipledelete");
+Route::delete("multipledelete", "ItemController@multipledelete");
 // Templates
+
 Route::group(array('prefix'=>'/templates/'),function(){
 
     Route::get('{templates}', array( function($templates)

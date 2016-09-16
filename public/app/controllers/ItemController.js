@@ -49,7 +49,30 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
 
    
    $scope.deleteall=function (){
-      
+      var ids=new Array();
+      count=0;
+      angular.forEach($scope.data,function(data){
+        if(data.selected==true)
+        {
+          ids[count]=data.id;
+          count=count+1;
+        }
+      });
+
+      if(ids.length>0){ 
+         ids=JSON.stringify(ids);
+         ids={ids:ids};
+
+         dataFactory.httpRequest('/multipledelete','DELETE',{},ids).then(function(data){
+            console.log(data);
+            if(data.success==true)
+            {
+              console.log("hehehaha");
+            }
+         });
+      }
+       
+   
    };
 
   
@@ -126,7 +149,7 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
      $scope.minlength = 3;
     if(isvalid)
     {
-     // console.log($scope.user);
+      console.log($scope.user);
        promise=dataFactory.httpRequest('items','POST',{},$scope.user).then(function(data){
           
           host=$window.location.host;

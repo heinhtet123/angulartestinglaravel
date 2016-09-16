@@ -125,9 +125,30 @@ class ItemController extends Controller
         
     }
     
-    public function multipledelete($data)
+    public function multipledelete(Request $request)
     {
+        // dd(json_decode($request->getContent(), true));
+      //  $data=$request->all();
 
+    //  $data=$request->getContent();
+       // $data=$request->all();
+        $data=json_decode($request->input('ids'));
+
+        if(Item::destroy($data)==true){
+            
+            $data=['success'=>true];
+        }
+
+        // if($data==true)
+        // {
+        //     $data="true";
+        // }else
+        // {
+        //     $data="false";
+        // }
+       // $data=$request->json('ids');
+
+        return response($data);
     }
 
 
