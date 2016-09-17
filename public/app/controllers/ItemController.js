@@ -59,16 +59,19 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
         }
       });
 
+
       if(ids.length>0){ 
          ids=JSON.stringify(ids);
-         ids={ids:ids};
-
+         ids={ids:ids,reverse:$scope.reverse,page:$scope.bigCurrentPage};
+          
+     
          dataFactory.httpRequest('/multipledelete','DELETE',{},ids).then(function(data){
             console.log(data);
             if(data.success==true)
             {
-              console.log("hehehaha");
+              
             }
+
          });
       }
        
