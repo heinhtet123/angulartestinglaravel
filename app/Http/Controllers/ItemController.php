@@ -128,7 +128,7 @@ class ItemController extends Controller
     
     public function multipledelete(Request $request)
     {
-     
+        sleep(1);
         $data=json_decode($request->input('ids'));
 
         if(Item::destroy($data)==true){
