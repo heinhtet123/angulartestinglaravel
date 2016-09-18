@@ -135,7 +135,9 @@ class ItemController extends Controller
             $data=['success'=>true];
             $page=$request->input('page');
             $items['data']=$this->paging($page);
+            $items['totalcount']= Item::get()->count();
             $data=array_merge($data,$items);
+
         }
 
         return response($data);
@@ -143,15 +145,12 @@ class ItemController extends Controller
 
     public function paging(&$page)
     {
-
+        
         $limit=5;
-        $items_count=Item::get()->count();
-
         $offset=$limit*$page-$limit;
-
-        
+        // Item::skip($offset)->take($limit)->get(); Item::paginate($offset);
         $items = Item::skip($offset)->take($limit)->get();
-        
+
         if($items->isEmpty())
         {
             $page=$page-1;

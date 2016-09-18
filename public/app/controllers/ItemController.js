@@ -16,8 +16,8 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
   $scope.maxSize = 5;
   //number of page
   $scope.bigCurrentPage = 1;
-
   $scope.numPages= $scope.bigTotalItems/$scope.itemsperpage;
+  
   if($scope.numPages % 1 != 0)
   {
       $scope.numPages=$scope.numPages+1;
@@ -60,18 +60,18 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
       });
 
 
-      if(ids.length>0){ 
+      if(ids.length>0){
          ids=JSON.stringify(ids);
          ids={ids:ids,reverse:$scope.reverse,page:$scope.bigCurrentPage};
           
      
          dataFactory.httpRequest('/multipledelete','DELETE',{},ids).then(function(data){
-            console.log(data);
-            if(data.success==true)
-            {
-              
-            }
-
+           // console.log(ids);
+            $scope.data={};
+            console.log(data.data);
+            $scope.data=data.data;
+            $scope.numPages= data.totalcount/$scope.itemsperpage;
+            $scope.bigTotalItems=$scope.numPages;
          });
       }
        
