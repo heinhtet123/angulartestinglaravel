@@ -67,7 +67,7 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
             if(confirm("Are you sure you want to delete those items?")){
 
               ids={ids:ids,reverse:$scope.reverse,page:$scope.bigCurrentPage};
-              
+
               $scope.loading=true;
         
               dataFactory.httpRequest('/multipledelete','DELETE',{},ids).then(function(data){

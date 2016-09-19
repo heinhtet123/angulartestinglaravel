@@ -160,7 +160,7 @@ class ItemController extends Controller
         {
              $items=$items->orderby('id',"DESC");
         }
-
+        
         $items = $items->get();
 
         if($items->isEmpty())
