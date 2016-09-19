@@ -58,28 +58,30 @@ app.controller('ItemController',function(dataFactory,$log,$scope,$window,$http){
           count=count+1;
         }
       });
-
+     
 
       if(ids.length>0){
-         ids=JSON.stringify(ids);
-         ids={ids:ids,reverse:$scope.reverse,page:$scope.bigCurrentPage};
-          
-          if(confirm("Are you sure you want to delete those items"))
-          {
-            $scope.loading=true;
-            dataFactory.httpRequest('/multipledelete','DELETE',{},ids).then(function(data){
-              $scope.data=data.data;
-              $scope.numPages= data.totalcount/$scope.itemsperpage;
-              if($scope.numPages % 1 != 0)
-              {
-                   $scope.numPages=$scope.numPages+1;
+            ids=JSON.stringify(ids);
+         
+            ids={ids:ids,reverse:$scope.reverse,page:$scope.bigCurrentPage};
+            if(confirm("Are you sure you want to delete those items?")){
+
+              $scope.loading=true;
+              dataFactory.httpRequest('/multipledelete','DELETE',{},ids).then(function(data){
+                  $scope.data=data.data;
+                  $scope.numPages= data.totalcount/$scope.itemsperpage;
+                  if($scope.numPages % 1 != 0)
+                  {
+                       $scope.numPages=$scope.numPages+1;
+                  }
+                  $scope.bigTotalItems=data.totalcount;
+                  $scope.loading=false;
+                  $scope.selected=false;
+              });
+
               }
-              $scope.bigTotalItems=data.totalcount;
-              $scope.loading=false;
-              $scope.selected=false;
-           });
             //end of confirm box
-         }
+         
 
       }
        
