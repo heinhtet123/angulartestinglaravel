@@ -128,33 +128,45 @@ class ItemController extends Controller
     
     public function multipledelete(Request $request)
     {
+
         sleep(1);
         $data=json_decode($request->input('ids'));
 
         if(Item::destroy($data)==true){
             $data=['success'=>true];
             $page=$request->input('page');
-            $items['data']=$this->paging($page);
-            $items['totalcount']= Item::get()->count();
-            $data=array_merge($data,$items);
+            $reverse=$request->input('reverse');
 
+            $data['data']=$this->paging($page,$reverse);
+            $data['totalcount']= Item::get()->count();
+           
         }
 
         return response($data);
     }
 
-    public function paging(&$page)
+    public function paging(&$page,$reverse)
     {
         
         $limit=5;
         $offset=$limit*$page-$limit;
         // Item::skip($offset)->take($limit)->get(); Item::paginate($offset);
-        $items = Item::skip($offset)->take($limit)->get();
+
+        //$items=$items->orderby('id',$request->get('sortby'));
+        
+        $items = Item::skip($offset)->take($limit);
+
+        if($reverse)
+        {
+             $items=$items->orderby('id',"DESC");
+        }
+
+        $items = $items->get();
 
         if($items->isEmpty())
         {
             $page=$page-1;
-            $items = $this->paging($page);
+            $items = $this->paging($page,$reverse);
 
         }
 
